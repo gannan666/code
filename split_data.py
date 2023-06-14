@@ -1,7 +1,8 @@
 import os  
 import random   
   
-xmlfilepath="G:/desktop/SAR_FZ1/labels_new/" # xml文件的路径
+sets = ['train', 'test', 'val']
+xmlfilepath="G:/desktop/SAR_FZ1/labels_new/" # label文件的路径
 saveBasePath="G:/desktop/SAR_FZ1/ImageSets/" # 生成的txt文件的保存路径
   
 trainval_percent=0.9  # 训练验证集占整个数据集的比重（划分训练集和测试验证集）
@@ -31,7 +32,16 @@ for i  in list:
     else:    
         ftest.write(name)    
     
+
+for image_set in sets:
+    image_ids = open('G:/desktop/SAR_FZ1/ImageSets/Main/%s.txt' % (image_set)).read().strip().split()
+    list_file = open('G:/desktop/SAR_FZ1/%s.txt' % (image_set), 'w')
+    for image_id in image_ids:
+        list_file.write('JPEGImages/%s.jpg\n' % (image_id))
+    list_file.close()
+
 ftrainval.close()    
 ftrain.close()    
 fval.close()    
 ftest .close() 
+print("Done!")
